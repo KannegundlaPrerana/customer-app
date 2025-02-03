@@ -35,3 +35,18 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task precommit(type: Copy) {
+	from 'git/hooks/pre-commit'
+	into '.git/hooks'
+
+	filePermissions {
+		user {
+			read = true
+			execute = true
+		}
+		other.execute = true
+	}
+}
+
+build.finalizedBy(precommit)
