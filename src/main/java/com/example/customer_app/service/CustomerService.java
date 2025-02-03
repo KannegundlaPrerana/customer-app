@@ -1,7 +1,7 @@
 package com.example.customer_app.service;
 
-import com.example.customer_app.entities.Customer;
 import com.example.customer_app.dto.CustomerDto;
+import com.example.customer_app.entities.Customer;
 import com.example.customer_app.exception.NoCustomerWithGivenIdException;
 import com.example.customer_app.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;

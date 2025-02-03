@@ -1,5 +1,6 @@
 package com.example.customer_app.service;
 
+import com.example.customer_app.dto.CustomerDto;
 import com.example.customer_app.entities.Customer;
 import com.example.customer_app.exception.NoCustomerWithGivenIdException;
 import com.example.customer_app.repository.CustomerRepository;
@@ -41,9 +42,33 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getCustomerShouldThrowExceptionIfCustomerWithIdDoesNotExist() {
+    void shouldThrowExceptionIfGetCustomerIsCalledWithCustomerIdWhichDoesNotExist() {
         when(customerRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(NoCustomerWithGivenIdException.class, () -> customerService.getCustomer(1));
+    }
+
+    @Test
+    void shouldSaveCustomerAndReturnSavedCustomerId() {
+        LocalDate date = LocalDate.now();
+        CustomerDto customerDto = CustomerDto.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .dateOfBirth(date)
+                .build();
+
+        Customer.CustomerBuilder customerBuilder = Customer.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .dateOfBirth(date);
+
+        Customer customer = customerBuilder.build();
+        Customer customerWithId = customerBuilder.id(1).build();
+
+        when(customerRepository.save(customer)).thenReturn(customerWithId);
+
+        int customerId = customerService.addCustomer(customerDto);
+
+        assertEquals(1, customerId);
     }
 }
