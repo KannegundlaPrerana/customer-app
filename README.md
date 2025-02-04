@@ -28,6 +28,8 @@ Example of request body
 ```
 Response: CustomerId of added customer.
 
+Open endpoint: ```localhost:8080/h2-console``` to check the in memory H2-database data.
+
 ### Get Customer
 Endpoint: ```GET /customer/get-customer/<customerId>```
 
